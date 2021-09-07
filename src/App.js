@@ -5,6 +5,7 @@ import faker from "faker";
 
 import Button from "@material-ui/core/Button";
 import WordsList from "./components/WordsList";
+import Score from "./components/Score";
 
 const App = () => {
   const word = faker.random.word();
@@ -13,12 +14,14 @@ const App = () => {
   const [is_start, setStart] = React.useState(false);
   const interval = React.useRef({});
   const [is_game_over, setGameOver] = React.useState(false);
+  const [score, setScore] = React.useState(0);
+  const [word_count, setWordCount] = React.useState(words_list.length);
 
   const startEffect = () => {
     if (!is_start) return;
     interval.current.timer = setInterval(() => {
       setNewWord(() => faker.random.word());
-    }, 1200);
+    }, 1300);
   };
   React.useEffect(startEffect, [is_start]);
 
@@ -26,6 +29,7 @@ const App = () => {
     const new_list = [...words_list];
     new_list.push(new_word);
     setWordsList(new_list);
+    setWordCount(word_count + 1);
   };
   React.useEffect(newWordEffect, [new_word]);
 
@@ -42,21 +46,25 @@ const App = () => {
   console.log("WORDS", words_list);
   return (
     <div className="App">
-      <Button
-        onClick={() => {
-          setStart(!is_start);
-        }}
-        variant="contained"
-        color="primary"
-      >
-        {is_start ? "Stop" : "Start"}
-      </Button>
+      <div className="control">
+        <Button
+          onClick={() => {
+            setStart(!is_start);
+          }}
+          variant="contained"
+          color="primary"
+        >
+          {is_start ? "Stop" : "Start"}
+        </Button>
+        <Score score={score} word_count={word_count} />
+      </div>
 
       <WordsList
         words_list={words_list}
         setWordsList={setWordsList}
         is_start={is_start}
         is_game_over={is_game_over}
+        setScore={setScore}
       />
     </div>
   );

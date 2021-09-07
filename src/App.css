@@ -1,4 +1,11 @@
 .App {
   text-align: center;
   padding: 8px;
+  max-width: 480px;
+  margin: auto;
+}
+
+.control {
+  display: flex;
+  justify-content: space-between;
 }

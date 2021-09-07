@@ -7,7 +7,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import FirstWord from "./FirstWord";
 
-const WordsLlist = ({ words_list, setWordsList, is_start, is_game_over }) => {
+const WordsLlist = ({
+  words_list,
+  setWordsList,
+  is_start,
+  is_game_over,
+  setScore,
+}) => {
   const getGameState = ({ is_start, is_game_over }) => {
     if (is_game_over) return "Game Over!";
     else if (!is_start) return "Press 'Start' to play!";
@@ -42,6 +48,7 @@ const WordsLlist = ({ words_list, setWordsList, is_start, is_game_over }) => {
                 word={words_list[0]}
                 removeWord={removeWord}
                 key={word}
+                setScore={setScore}
               />
             );
           else {

@@ -5,7 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 
 import useTypingGame from "react-typing-game-hook";
 
-const FirstWord = ({ word, removeWord }) => {
+const FirstWord = ({ word, removeWord, setScore }) => {
   const first_word_ref = React.useRef({});
 
   const {
@@ -38,7 +38,10 @@ const FirstWord = ({ word, removeWord }) => {
   });
 
   const correctTypingEffect = () => {
-    if (correctChar === word.length) removeWord({ word });
+    if (correctChar === word.length) {
+      removeWord({ word });
+      setScore((score) => score + 1);
+    }
   };
 
   React.useEffect(correctTypingEffect, [correctTypingEffect]);
